@@ -44,8 +44,14 @@
     .rose-image { width: 180px; animation: float 3s ease-in-out infinite; }
     @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    .hidden { display: none; }
-    .start-link { color: white; text-decoration: underline; cursor: pointer; }
+    .hidden { display: none !important; } /* Added important to force hiding */
+    .start-link { 
+      color: white; 
+      text-decoration: underline; 
+      cursor: pointer; 
+      display: inline-block; 
+      padding: 10px;
+    }
   </style>
 </head>
 <body>
@@ -53,14 +59,13 @@
   <div class="container">
     <header class="header">
       <h1>💕 Happy Rose Day 💕</h1>
-      <p id="start-instruction">
-        <span class="start-link" onclick="startJourney()">Play the quiz to earn your virtual rose</span>
-      </p>
+      <div id="start-container">
+        <p class="start-link" onclick="startJourney()">Play the quiz to earn your virtual rose</p>
+      </div>
     </header>
 
     <div id="display-card" class="card hidden">
-      <div id="content-area">
-        </div>
+      <div id="content-area"></div>
     </div>
 
     <div id="rose-section" class="hidden">
@@ -75,20 +80,22 @@
   </div>
 
   <script>
+    // The sequence of events
     const journey = [
-      { type: "quote", text: "Distance means so little when someone means so much. ❤️" },
-      { type: "quiz", q: "So where did we first meet offline?", o: ["Cottage Cafe", "Elante", "Cosmo"], a: 0 },
-      { type: "quote", text: "Always together, never apart maybe in distance, but never in heart 😘😘💕" },
-      { type: "quiz", q: "do you know me the best?? Which flower do I like the most?", o: ["Red Rose", "Anything you give", "Sunflowers"], a: 1 },
-      { type: "quote", text: "This valentines we are not together i know we are meeting soon but still it feels heavy on special day like this its just DAY 1 of the valentines week and i miss you my love 😘🥹🥺.Every day with you feels like Valentine's Day. ✨" },
-      { type: "quiz", q: "What do I love the most?", o: ["You", "option a", "option b", "all of the above"], a: 3 } 
-      { type: "quote", text: "You ask me Why I Love You, I love you because I feel safe, confident in myself and I dont know after how many years I have felt this way, I just ralised that how happy I am with you, you think I cry too much but I think its the very first time I cried in front of anyone after mumma, you give me that space where I can be at my worst in front of you and I know you will not judge me and I guess thats why I love you, I want you in my good and bad days. You are the most special person for me, my jaan. I love you the most 💕🥹😘💕" },
-    ];
+    { type: "quote", text: "Distance means so little when someone means so much. ❤️" },
+    { type: "quiz", q: "So where did we first meet offline?", o: ["Cottage Cafe", "Elante", "Cosmo"], a: 0 },
+    { type: "quote", text: "Always together, never apart maybe in distance, but never in heart 😘😘💕" },
+    { type: "quiz", q: "do you know me the best?? Which flower do I like the most?", o: ["Red Rose", "Anything you give", "Sunflowers"], a: 1 },
+    { type: "quote", text: "This valentines we are not together i know we are meeting soon but still it feels heavy on special day like this its just DAY 1 of the valentines week and i miss you my love 😘🥹🥺.Every day with you feels like Valentine's Day. ✨" },
+    { type: "quiz", q: "What do I love the most?", o: ["You", "option a", "option b", "all of the above"], a: 3 } 
+    { type: "quote", text: "You ask me Why I Love You, I love you because I feel safe, confident in myself and I dont know after how many years I have felt this way, I just ralised that how happy I am with you, you think I cry too much but I think its the very first time I cried in front of anyone after mumma, you give me that space where I can be at my worst in front of you and I know you will not judge me and I guess thats why I love you, I want you in my good and bad days. You are the most special person for me, my jaan. I love you the most 💕🥹😘💕" },
 
+    ];
     let step = 0;
 
     function startJourney() {
-      document.getElementById("start-instruction").classList.add("hidden");
+      console.log("Journey started!"); // This helps us debug
+      document.getElementById("start-container").classList.add("hidden");
       document.getElementById("display-card").classList.remove("hidden");
       showStep();
     }
@@ -104,14 +111,17 @@
           <button class="btn-main" onclick="nextStep()">Continue →</button>
         `;
       } else {
-        content.innerHTML = `<p style="font-weight: bold; margin-bottom: 15px;">${current.q}</p>`;
+        content.innerHTML = `<p style="font-weight: bold; margin-bottom: 15px; font-size: 1.2rem;">${current.q}</p>`;
         current.o.forEach((opt, i) => {
           const btn = document.createElement("button");
           btn.innerText = opt;
           btn.className = "option-btn";
-          btn.onclick = () => {
-            if (i === current.a) nextStep();
-            else alert("Try again, my love! ❤️");
+          btn.onclick = function() {
+            if (i === current.a) {
+              nextStep();
+            } else {
+              alert("Oops! Try again, my love! ❤️");
+            }
           };
           content.appendChild(btn);
         });
