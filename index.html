@@ -3,58 +3,130 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🌹 Rose Day - Virtual Rose Quiz 🌹</title>
+  <title>🌹 Rose Day Journey 🌹</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ffeef4 0%, #fff5f7 100%);
+      color: #333;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container { max-width: 600px; margin: 0 auto; text-align: center; }
+    .header {
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #ff6b9d 0%, #ff1744 100%);
+      color: white;
+      border-radius: 15px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 20px rgba(255, 27, 68, 0.3);
+    }
+    .card {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+      animation: fadeIn 0.5s ease;
+    }
+    .quote-text { font-style: italic; font-size: 1.2rem; color: #ff1744; line-height: 1.6; margin-bottom: 20px; }
+    .option-btn {
+      display: block; width: 100%; padding: 15px; margin: 10px 0;
+      border: 2px solid #e0e0e0; background: #f9f9f9; border-radius: 10px;
+      cursor: pointer; font-size: 1em; transition: 0.3s;
+    }
+    .option-btn:hover { border-color: #ff1744; background: #ffe0e6; transform: translateX(5px); }
+    .btn-main {
+      padding: 12px 25px; background: #ff1744; color: white; border: none;
+      border-radius: 25px; cursor: pointer; font-weight: bold; margin-top: 10px;
+    }
+    .rose-image { width: 180px; animation: float 3s ease-in-out infinite; }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .hidden { display: none; }
+    .start-link { color: white; text-decoration: underline; cursor: pointer; }
+  </style>
 </head>
 <body>
+
   <div class="container">
-    <!-- Header -->
     <header class="header">
       <h1>💕 Happy Rose Day 💕</h1>
-      <p class="subtitle">Play the quiz to earn your virtual rose</p>
+      <p id="start-instruction">
+        <span class="start-link" onclick="startJourney()">Play the quiz to earn your virtual rose</span>
+      </p>
     </header>
 
-    <!-- Quiz Section -->
-    <div id="quiz-section" class="quiz-section">
-      <div class="quiz-card">
-        <div class="progress-bar">
-          <div id="progress" class="progress"></div>
+    <div id="display-card" class="card hidden">
+      <div id="content-area">
         </div>
-        <h2 id="question-number"></h2>
-        <p id="question" class="question"></p>
-        <div id="options" class="options"></div>
-        <button id="next-btn" class="btn btn-next" style="display:none">Next Question →</button>
+    </div>
+
+    <div id="rose-section" class="hidden">
+      <div class="card">
+        <img src="https://img.icons8.com/color/200/000000/rose.png" class="rose-image">
+        <h2 style="color: #ff1744; margin-top: 20px;">🎉 Happy Rose Day! 🎉</h2>
+        <p>You've completed the journey. Here is your bouquet! 💐</p>
       </div>
     </div>
 
-    <!-- Rose Display Section -->
-    <div id="rose-section" class="rose-section" style="display:none">
-      <div class="rose-container">
-        <div class="confetti"></div>
-        <img src="https://img.icons8.com/color/200/000000/rose.png" alt="Virtual Rose" class="rose-image"/>
-        <h2 class="rose-title">🎉 Congratulations! 🎉</h2>
-        <p class="rose-message">You've earned your virtual rose! 💐</p>
-        <p class="rose-submessage">Scroll down to see love quotes for you...</p>
-      </div>
-    </div>
-
-    <!-- Quote Carousel Section -->
-    <div id="quote-section" class="quote-section">
-      <h2>💌 Long Distance Love Quotes 💌</h2>
-      <div class="quote-carousel">
-        <button id="prev-quote" class="carousel-btn carousel-prev">❮</button>
-        <div class="quote-box">
-          <p id="quote" class="quote-text"></p>
-          <span id="quote-counter" class="quote-counter"></span>
-        </div>
-        <button id="next-quote" class="carousel-btn carousel-next">❯</button>
-      </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <p>Made with 💕 on Rose Day 2026</p>
-    </footer>
+    <footer style="color: #999; margin-top: 20px;">Made with 💕 for You</footer>
   </div>
 
+  <script>
+    const journey = [
+      { type: "quote", text: "Distance means so little when someone means so much. ❤️" },
+      { type: "quiz", q: "So where did we first meet offline?", o: ["Cottage Cafe", "Elante", "Cosmo"], a: 0 },
+      { type: "quote", text: "Always together, never apart maybe in distance, but never in heart 😘😘💕" },
+      { type: "quiz", q: "do you know me the best?? Which flower do I like the most?", o: ["Red Rose", "Anything you give", "Sunflowers"], a: 1 },
+      { type: "quote", text: "This valentines we are not together i know we are meeting soon but still it feels heavy on special day like this its just DAY 1 of the valentines week and i miss you my love 😘🥹🥺.Every day with you feels like Valentine's Day. ✨" },
+      { type: "quiz", q: "What do I love the most?", o: ["You", "option a", "option b", "all of the above"], a: 3 } 
+      { type: "quote", text: "You ask me Why I Love You, I love you because I feel safe, confident in myself and I dont know after how many years I have felt this way, I just ralised that how happy I am with you, you think I cry too much but I think its the very first time I cried in front of anyone after mumma, you give me that space where I can be at my worst in front of you and I know you will not judge me and I guess thats why I love you, I want you in my good and bad days. You are the most special person for me, my jaan. I love you the most 💕🥹😘💕" },
+    ];
+
+    let step = 0;
+
+    function startJourney() {
+      document.getElementById("start-instruction").classList.add("hidden");
+      document.getElementById("display-card").classList.remove("hidden");
+      showStep();
+    }
+
+    function showStep() {
+      const content = document.getElementById("content-area");
+      content.innerHTML = "";
+      const current = journey[step];
+
+      if (current.type === "quote") {
+        content.innerHTML = `
+          <p class="quote-text">"${current.text}"</p>
+          <button class="btn-main" onclick="nextStep()">Continue →</button>
+        `;
+      } else {
+        content.innerHTML = `<p style="font-weight: bold; margin-bottom: 15px;">${current.q}</p>`;
+        current.o.forEach((opt, i) => {
+          const btn = document.createElement("button");
+          btn.innerText = opt;
+          btn.className = "option-btn";
+          btn.onclick = () => {
+            if (i === current.a) nextStep();
+            else alert("Try again, my love! ❤️");
+          };
+          content.appendChild(btn);
+        });
+      }
+    }
+
+    function nextStep() {
+      step++;
+      if (step < journey.length) {
+        showStep();
+      } else {
+        document.getElementById("display-card").classList.add("hidden");
+        document.getElementById("rose-section").classList.remove("hidden");
+      }
+    }
+  </script>
 </body>
 </html>
