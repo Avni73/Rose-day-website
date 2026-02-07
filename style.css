@@ -1,345 +1,238 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌹 Rose Day - Virtual Rose Quiz 🌹</title>
+  <style>
+    /* --- CSS STYLING --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #ffeef4 0%, #fff5f7 100%);
-  color: #333;
-  min-height: 100vh;
-  padding: 20px;
-}
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ffeef4 0%, #fff5f7 100%);
+      color: #333;
+      min-height: 100vh;
+      padding: 20px;
+    }
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-}
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
 
-/* Header Styling */
-.header {
-  text-align: center;
-  padding: 40px 20px;
-  background: linear-gradient(135deg, #ff6b9d 0%, #ff1744 100%);
-  color: white;
-  border-radius: 15px;
-  margin-bottom: 30px;
-  box-shadow: 0 8px 20px rgba(255, 27, 68, 0.3);
-}
+    .header {
+      text-align: center;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #ff6b9d 0%, #ff1744 100%);
+      color: white;
+      border-radius: 15px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 20px rgba(255, 27, 68, 0.3);
+    }
 
-.header h1 {
-  font-size: 2.5em;
-  margin-bottom: 10px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-}
+    .quiz-card, .rose-container, .quote-section {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+    }
 
-.subtitle {
-  font-size: 1.1em;
-  opacity: 0.9;
-}
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #e0e0e0;
+      border-radius: 10px;
+      margin-bottom: 25px;
+      overflow: hidden;
+    }
 
-/* Quiz Section */
-.quiz-section {
-  margin-bottom: 40px;
-}
+    .progress {
+      height: 100%;
+      background: linear-gradient(90deg, #ff6b9d, #ff1744);
+      width: 0%;
+      transition: width 0.4s ease;
+    }
 
-.quiz-card {
-  background: white;
-  border-radius: 15px;
-  padding: 40px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-}
+    .question {
+      font-size: 1.3em;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
 
-.progress-bar {
-  width: 100%;
-  height: 6px;
-  background: #e0e0e0;
-  border-radius: 10px;
-  margin-bottom: 30px;
-  overflow: hidden;
-}
+    /* Fixed Button Styling to match your hover effects */
+    .option-btn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      border: 2px solid #e0e0e0;
+      background: #f9f9f9;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: all 0.3s ease;
+      text-align: left;
+    }
 
-.progress {
-  height: 100%;
-  background: linear-gradient(90deg, #ff6b9d, #ff1744);
-  width: 0%;
-  transition: width 0.3s ease;
-}
+    .option-btn:hover {
+      border-color: #ff1744;
+      background: #ffe0e6;
+      transform: translateX(5px);
+    }
 
-#question-number {
-  color: #ff1744;
-  font-size: 0.9em;
-  margin-bottom: 15px;
-}
+    .rose-image {
+      width: 150px;
+      display: block;
+      margin: 0 auto 20px;
+      animation: float 3s ease-in-out infinite;
+    }
 
-.question {
-  font-size: 1.4em;
-  font-weight: 600;
-  margin-bottom: 25px;
-  color: #333;
-  line-height: 1.6;
-}
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
 
-.options {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-  margin-bottom: 30px;
-}
+    .quote-box {
+      background: #fff5f7;
+      padding: 20px;
+      border-left: 5px solid #ff1744;
+      margin: 15px 0;
+      min-height: 100px;
+    }
 
-.option-btn {
-  padding: 15px 20px;
-  border: 2px solid #e0e0e0;
-  background: #f9f9f9;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 1em;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  text-align: left;
-}
+    .quote-carousel {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
 
-.option-btn:hover {
-  border-color: #ff1744;
-  background: #ffe0e6;
-  transform: translateX(5px);
-}
+    .carousel-btn {
+      background: #ff1744;
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
 
-.option-btn.selected {
-  background: #ff6b9d;
-  color: white;
-  border-color: #ff1744;
-}
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
 
-.option-btn.correct {
-  background: #4caf50;
-  color: white;
-  border-color: #4caf50;
-}
+  <div class="container">
+    <header class="header">
+      <h1>💕 Happy Rose Day 💕</h1>
+      <p class="subtitle">Complete the quiz for your rose</p>
+    </header>
 
-.option-btn.incorrect {
-  background: #f44336;
-  color: white;
-  border-color: #f44336;
-}
+    <div id="quiz-section">
+      <div class="quiz-card">
+        <div class="progress-bar">
+          <div id="progress" class="progress"></div>
+        </div>
+        <p id="question" class="question"></p>
+        <div id="options"></div>
+      </div>
+    </div>
 
-/* Button Styling */
-.btn {
-  padding: 12px 30px;
-  border: none;
-  border-radius: 10px;
-  font-size: 1em;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
+    <div id="rose-section" class="hidden">
+      <div class="rose-container" style="text-align: center;">
+        <img src="https://img.icons8.com/color/200/000000/rose.png" alt="Rose" class="rose-image"/>
+        <h2 style="color: #ff1744;">🎉 Congratulations! 🎉</h2>
+        <p>You've earned your virtual rose! 💐</p>
+      </div>
+    </div>
 
-.btn-next {
-  background: linear-gradient(135deg, #ff6b9d 0%, #ff1744 100%);
-  color: white;
-  width: 100%;
-  margin-top: 20px;
-}
+    <div class="quote-section">
+      <h2 style="text-align: center; color: #ff1744; margin-bottom: 20px;">💌 For You 💌</h2>
+      <div class="quote-carousel">
+        <button onclick="prevQuote()" class="carousel-btn">❮</button>
+        <div class="quote-box">
+          <p id="quote-text" style="font-style: italic;"></p>
+        </div>
+        <button onclick="nextQuote()" class="carousel-btn">❯</button>
+      </div>
+    </div>
 
-.btn-next:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(255, 27, 68, 0.4);
-}
+    <footer style="text-align: center; color: #999; padding: 20px;">
+      Made with 💕 for my favorite person
+    </footer>
+  </div>
 
-/* Rose Section */
-.rose-section {
-  text-align: center;
-  margin-bottom: 40px;
-  animation: slideIn 0.6s ease;
-}
+  <script>
+    /* --- JAVASCRIPT LOGIC --- */
+    const questions = [
+      { q: "Where did we first met offline?", o: ["Cottage Cafe", "Elante", "Cosmo"], a: 0 },
+      { q: "Which flower do I like the most?", o: ["Red Rose", "Anything you give", "Sunflowers"], a: 1 },
+      { q: "What do I love the most?", o: ["You", "Sleep", "Food"], a: 0 }
+    ];
 
-.rose-container {
-  background: white;
-  border-radius: 15px;
-  padding: 50px 30px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  position: relative;
-  overflow: hidden;
-}
+    const quotes = [
+      "Distance means so little when someone means so much. ❤️",
+      "A rose for the rose of my life. 🌹",
+      "Every day with you feels like Valentine's Day. ✨",
+      "I'm so lucky to have you. 💕"
+    ];
 
-.rose-image {
-  width: 150px;
-  height: 150px;
-  margin-bottom: 20px;
-  animation: bounce 0.6s ease;
-}
+    let currentQ = 0;
+    let quoteIdx = 0;
 
-.rose-title {
-  font-size: 2em;
-  color: #ff1744;
-  margin-bottom: 15px;
-}
+    function loadQuiz() {
+      const q = questions[currentQ];
+      document.getElementById("question").innerText = q.q;
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+      
+      document.getElementById("progress").style.width = (currentQ / questions.length * 100) + "%";
 
-.rose-message {
-  font-size: 1.2em;
-  color: #333;
-  margin-bottom: 10px;
-}
+      q.o.forEach((opt, i) => {
+        const btn = document.createElement("button");
+        btn.innerText = opt;
+        btn.className = "option-btn";
+        btn.onclick = () => {
+          if(i === q.a) {
+            currentQ++;
+            if(currentQ < questions.length) loadQuiz();
+            else finishQuiz();
+          } else {
+            alert("Oops! Try again for your rose... ❤️");
+          }
+        };
+        optionsDiv.appendChild(btn);
+      });
+    }
 
-.rose-submessage {
-  font-size: 1em;
-  color: #999;
-  font-style: italic;
-}
+    function finishQuiz() {
+      document.getElementById("progress").style.width = "100%";
+      document.getElementById("quiz-section").classList.add("hidden");
+      document.getElementById("rose-section").classList.remove("hidden");
+    }
 
-/* Confetti Animation */
-.confetti {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background: #ff1744;
-  border-radius: 50%;
-  top: -10px;
-  left: 50%;
-  animation: confetti-fall 3s ease-in forwards;
-}
+    function showQuote() {
+      document.getElementById("quote-text").innerText = quotes[quoteIdx];
+    }
 
-@keyframes confetti-fall {
-  to {
-    transform: translateY(500px) translateX(100px) rotateZ(360deg);
-    opacity: 0;
-  }
-}
+    function nextQuote() {
+      quoteIdx = (quoteIdx + 1) % quotes.length;
+      showQuote();
+    }
 
-/* Quote Carousel Section */
-.quote-section {
-  background: white;
-  border-radius: 15px;
-  padding: 40px 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-}
+    function prevQuote() {
+      quoteIdx = (quoteIdx - 1 + quotes.length) % quotes.length;
+      showQuote();
+    }
 
-.quote-section h2 {
-  color: #ff1744;
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 1.8em;
-}
-
-.quote-carousel {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-}
-
-.carousel-btn {
-  background: linear-gradient(135deg, #ff6b9d 0%, #ff1744 100%);
-  color: white;
-  border: none;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  font-size: 1.5em;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.carousel-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 15px rgba(255, 27, 68, 0.4);
-}
-
-.quote-box {
-  flex: 1;
-  background: linear-gradient(135deg, #fff5f7 0%, #ffe0e6 100%);
-  padding: 30px;
-  border-radius: 10px;
-  border-left: 5px solid #ff1744;
-  position: relative;
-  min-height: 150px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.quote-text {
-  font-size: 1.1em;
-  color: #333;
-  line-height: 1.8;
-  font-style: italic;
-  font-weight: 500;
-  margin-bottom: 15px;
-}
-
-.quote-counter {
-  text-align: right;
-  color: #999;
-  font-size: 0.9em;
-}
-
-/* Footer */
-.footer {
-  text-align: center;
-  padding: 30px;
-  color: #999;
-  font-size: 0.95em;
-}
-
-/* Animations */
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes bounce {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-}
-
-/* Responsive Design */
-@media (max-width: 600px) {
-  .header h1 {
-    font-size: 2em;
-  }
-
-  .quiz-card {
-    padding: 20px;
-  }
-
-  .question {
-    font-size: 1.2em;
-  }
-
-  .quote-carousel {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .carousel-btn {
-    width: 40px;
-    height: 40px;
-    font-size: 1.2em;
-  }
-
-  .quote-box {
-    min-height: 120px;
-    padding: 20px;
-  }
-
-  .quote-text {
-    font-size: 1em;
-  }
-}
+    // Initialize
+    loadQuiz();
+    showQuote();
+  </script>
+</body>
+</html>
