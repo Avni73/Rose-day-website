@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌹 Rose Day - Virtual Rose Quiz 🌹</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1>💕 Happy Rose Day 💕</h1>
+      <p class="subtitle">Play the quiz to earn your virtual rose</p>
+    </header>
+
+    <!-- Quiz Section -->
+    <div id="quiz-section" class="quiz-section">
+      <div class="quiz-card">
+        <div class="progress-bar">
+          <div id="progress" class="progress"></div>
+        </div>
+        <h2 id="question-number"></h2>
+        <p id="question" class="question"></p>
+        <div id="options" class="options"></div>
+        <button id="next-btn" class="btn btn-next" style="display:none">Next Question →</button>
+      </div>
+    </div>
+
+    <!-- Rose Display Section -->
+    <div id="rose-section" class="rose-section" style="display:none">
+      <div class="rose-container">
+        <div class="confetti"></div>
+        <img src="https://img.icons8.com/color/200/000000/rose.png" alt="Virtual Rose" class="rose-image"/>
+        <h2 class="rose-title">🎉 Congratulations! 🎉</h2>
+        <p class="rose-message">You've earned your virtual rose! 💐</p>
+        <p class="rose-submessage">Scroll down to see love quotes for you...</p>
+      </div>
+    </div>
+
+    <!-- Quote Carousel Section -->
+    <div id="quote-section" class="quote-section">
+      <h2>💌 Long Distance Love Quotes 💌</h2>
+      <div class="quote-carousel">
+        <button id="prev-quote" class="carousel-btn carousel-prev">❮</button>
+        <div class="quote-box">
+          <p id="quote" class="quote-text"></p>
+          <span id="quote-counter" class="quote-counter"></span>
+        </div>
+        <button id="next-quote" class="carousel-btn carousel-next">❯</button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Made with 💕 on Rose Day 2026</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
