@@ -1,45 +1,31 @@
-// quiz.js
 // Quiz Game Logic
-class Quiz {
-    constructor(questions) {
-        this.questions = questions;
-        this.score = 0;
-        this.questionIndex = 0;
-    }
-
-    getCurrentQuestion() {
-        return this.questions[this.questionIndex];
-    }
-
-    guess(answer) {
-        if (this.getCurrentQuestion().correctAnswer === answer) {
-            this.score++;
-        }
-        this.questionIndex++;
-    }
-
-    hasEnded() {
-        return this.questionIndex >= this.questions.length;
-    }
-}
-
-// Quote Carousel Functionality
-const quotes = [
-    "The only way to do great work is to love what you do. - Steve Jobs",
-    "Life is what happens when you're busy making other plans. - John Lennon",
-    "Get busy living or get busy dying. - Stephen King",
-    "You only live once, but if you do it right, once is enough. - Mae West"
+const questions = [
+    { question: "What is the capital of France?", options: ["Paris", "London", "Berlin"], answer: 0 },
+    { question: "What is 2 + 2?", options: ["3", "4", "5"], answer: 1 },
+    // Add more questions here
 ];
 
-let currentQuoteIndex = 0;
-const quoteElement = document.getElementById('quote');
+let score = 0;
+questions.forEach((q, index) => {
+    const userAnswer = prompt(q.question + '\n' + q.options.join('\n'));
+    if (userAnswer === q.options[q.answer]) {
+        score++;
+    }
+});
+alert('Your score is: ' + score);
 
-function showQuote() {
-    quoteElement.innerText = quotes[currentQuoteIndex];
-    currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+// Quote Carousel Logic
+const quotes = [
+    "Life is what happens when you're busy making other plans.",
+    "Get busy living or get busy dying.",
+    "The only impossible journey is the one you never begin."
+];
+let currentIndex = 0;
+const quoteDisplay = document.getElementById('quoteDisplay');
+
+function displayQuote() {
+    quoteDisplay.innerText = quotes[currentIndex];
+    currentIndex = (currentIndex + 1) % quotes.length;
 }
 
-setInterval(showQuote, 3000); // Change quote every 3 seconds
-
-// Initialize the first quote
-showQuote();
+setInterval(displayQuote, 3000); // Change quote every 3 seconds
