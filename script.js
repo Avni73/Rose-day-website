@@ -1,18 +1,29 @@
 // Quiz Game Logic
 const questions = [
-    { question: "What is the capital of France?", options: ["Paris", "London", "Berlin"], answer: 0 },
-    { question: "What is 2 + 2?", options: ["3", "4", "5"], answer: 1 },
+    { question: "where did we first met offline?", options: ["cottage cafe", "elante", "cosmo"], answer: 0 },
+    { question: "which flower i like the most?", options: ["red rose", "anything you give", "sunflowers"], answer: 1 },
+    { question: "what i love the most?", options: ["you", "a", "b"], answer: 2 },
     // Add more questions here
 ];
 
 let score = 0;
-questions.forEach((q, index) => {
-    const userAnswer = prompt(q.question + '\n' + q.options.join('\n'));
-    if (userAnswer === q.options[q.answer]) {
-        score++;
+for (const q of questions) {
+    let correctAnswer = q.options[q.answer];
+    let userAnswer = "";
+
+    // This loop keeps running until the user types the exact correct answer
+    while (userAnswer !== correctAnswer) {
+        userAnswer = prompt(q.question + '\n' + q.options.join('\n'));
+        
+        if (userAnswer === correctAnswer) {
+            alert("Correct! ❤️ Moving to the next one...");
+        } else {
+            alert("Oops! Try again...");
+        }
     }
-});
-alert('Your score is: ' + score);
+}
+alert("Yay! You finished the quiz!");
+alert('Your score is: ❤️❤️😘' + score);
 
 // Quote Carousel Logic
 const quotes = [
